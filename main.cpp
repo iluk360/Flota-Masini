@@ -4,7 +4,8 @@
 
 using namespace std;
 
-int n = 0, kilometraj[N], lastKm[N], key;
+int n = 0, lastKm[N], key;
+double kilometraj[N];
 string matricol[N];
 
 string aux2;
@@ -21,7 +22,9 @@ int main()
     cout << "5. Actualizarea kilometrajului (vei introduce numarul de inmatriculare al masinii pentru care dorim sa actualizam kilometrajul) \n";
     cout << "6. Stergerea unei masini dupa numarul de inmatriculare \n";
     cout << "7. Sortarea masinilor dupa kilometraj, in ordine crescatoare \n";
-    cout << "8. Iesire din program \n \n";
+    cout << "8. Afisarea masinii (masinilor) cu cel mai mare numar de km, respectiv cu cel mai mic nr de km \n";
+    cout << "9. Calcularea numarului mediu de km al tuturor masinilor \n";
+    cout << "0. Iesire din program \n \n";
 
     do {
         cout << endl;
@@ -184,7 +187,8 @@ int main()
                         break;
                     }
 
-                    int aux, newKilometraj[N];
+                    int aux;
+                    double newKilometraj[N];
 
 
                     for (int i = 0; i < n; i++)
@@ -216,6 +220,40 @@ int main()
                 }
 
             case 8:
+            {
+                int minim = 99999999, maxim = 0;
+                int id;
+
+                for (int i = 0; i < n; i++)
+                {
+                    if (kilometraj[i] < minim)
+                    {
+                        minim = kilometraj[i];
+                        id = i;
+                    }
+                    if (kilometraj[i] > maxim)
+                    {
+                        maxim = kilometraj[i];
+                        id = i;
+                    }
+                }
+
+                cout << "Kilometrajul minim este detinut de masina cu nr de inmatriculare " << matricol[id] << " cu valoarea de " << minim << "\n";
+                cout << "Kilometrajul maxim este detinut de masina cu nr de inmatriculare " << matricol[id] << " cu valoarea de " << maxim << "\n \n";
+                break;
+            }
+
+            case 9:
+                {
+                    double suma = 0;
+                    double nrMasini = n;
+                    for (int i = 0; i < n; i++) suma += kilometraj[i];
+                    double medie = suma / nrMasini;
+
+                    cout << "Media de kilometraj a masinilor este de " << medie << "km \n";
+                }
+
+            case 0:
                 {
                     cout << "Iesire din program.";
                     break;
@@ -226,7 +264,7 @@ int main()
 
         }
 
-    } while(key != 8);
+    } while(key != 0);
 
     return 0;
 }
